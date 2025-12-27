@@ -70,18 +70,21 @@ public class PageController {
     }
 
     @PostMapping("/submitOrder")
-    public String submitOrder(@Valid @ModelAttribute("order") Order order,
+    public String submitOrder(
+            @Valid @ModelAttribute("order") Order order,
             BindingResult result,
             @RequestParam(value = "productId", required = false, defaultValue = "0") int productId,
             @RequestParam(value = "productName", required = false, defaultValue = "") String productName,
+            Authentication authentication,
             Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("productId", productId);
             model.addAttribute("productName", productName);
-            return "userform"; 
+            return "userform";
         }
 
+        order.setEmail(authentication.getName());
         order.setProductId(productId);
         order.setProductName(productName);
         order.setOrderDate(LocalDateTime.now());
@@ -104,6 +107,10 @@ public class PageController {
 
         String userEmail = authentication.getName();
         List<Order> orders = orderService.getOrdersByEmail(userEmail);
+
+        if (orders == null) {
+            orders = List.of();
+        }
 
         model.addAttribute("orders", orders);
         return "orders";
