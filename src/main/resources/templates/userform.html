@@ -12,8 +12,6 @@
         rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
-
-
         body {
             padding-top: 100px;
         }
@@ -33,7 +31,6 @@
             margin-bottom: 1.8rem;
             text-align: center;
         }
-
 
         input,
         textarea {
@@ -85,10 +82,8 @@
             margin-top: 0.4rem;
         }
 
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 30px 20px;
-            }
+        .form-group {
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
@@ -107,9 +102,7 @@
                 <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link"
                         th:href="@{/register}">Register</a></li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/cart}">
-                        <i class="fas fa-shopping-cart"></i> Cart
-                    </a>
+                    <a class="nav-link" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i> Cart</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/orders}">My Orders</a>
@@ -124,37 +117,46 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
         <div class="form-container">
             <h2>Enter Your Details to Place Order</h2>
-            <form th:action="@{/submitOrder(productId=${param.productId},productName=${param.productName})}"
-                th:object="${order}" method="post">
+
+            <form th:action="@{/submitOrder}" th:object="${order}" method="post">
+                <input type="hidden" name="productId" th:value="${productId}" />
+                <input type="hidden" name="productName" th:value="${productName}" />
+
                 <div class="form-group">
                     <label for="fullname">Full Name:</label>
                     <input type="text" th:field="*{fullname}" id="fullname" required
                         placeholder="Enter your full name" />
                     <div th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" class="error"></div>
                 </div>
+
                 <div class="form-group">
                     <label for="mobilenumber">Mobile Number:</label>
                     <input type="text" th:field="*{mobilenumber}" id="mobilenumber" required
                         placeholder="Enter your mobile number" />
                     <div th:if="${#fields.hasErrors('mobilenumber')}" th:errors="*{mobilenumber}" class="error"></div>
                 </div>
+
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="email" th:field="*{email}" id="email" required placeholder="Enter your email" />
                     <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
                 </div>
+
                 <div class="form-group">
                     <label for="address">Address:</label>
                     <textarea th:field="*{address}" id="address" required placeholder="Enter your address"></textarea>
                     <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error"></div>
                 </div>
+
                 <button type="submit">Place Order</button>
             </form>
         </div>
     </div>
+
     <script>
         document.querySelector('.navbar-toggler').addEventListener('click', () => {
             document.querySelector('.navbar-nav').classList.toggle('active');

@@ -22,7 +22,7 @@ public class Order {
     private String fullname;
 
     @NotBlank(message = "Mobile number is required")
-    @Pattern(regexp = "\\d{10}", message = "Mobile number must be 10 digits")
+    @Pattern(regexp = "\\d{10}", message = "Mobile number must be exactly 10 digits")
     @Column(name = "mobilenumber", nullable = false)
     private String mobilenumber;
 
@@ -32,14 +32,13 @@ public class Order {
     private String email;
 
     @NotBlank(message = "Address is required")
+    @Size(max = 500, message = "Address cannot exceed 500 characters")
     @Column(name = "address", nullable = false, length = 500)
     private String address;
 
-    @Min(value = 1, message = "Invalid product ID")
     @Column(name = "product_id")
-    private int productId;
+    private Integer productId;  
 
-    @NotBlank(message = "Product name is required")
     @Column(name = "product_name")
     private String productName;
 
