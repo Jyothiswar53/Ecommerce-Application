@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - JYOTHISH TASTES</title>
+    <title>Shopping Cart - TASTES</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -107,7 +107,7 @@
                 <tbody>
                     <tr th:each="item : ${cartItems}">
                         <td data-label="Product">
-                            <img th:src="@{'/productImages/' + ${item.imageName}}">
+                            <img th:src="@{'/productImages/' + ${item.imageName}}" width="80" alt="Product">
                             <span th:text="${item.productName}"></span>
                         </td>
                         <td data-label="Price">₹ <span th:text="${item.price}"></span></td>
