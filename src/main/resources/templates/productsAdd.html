@@ -123,18 +123,15 @@
             </div>
             <div class="form-group">
                 <p>Product Image</p>
-
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="productImage" accept="image/*"
+                    <input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png"
                         id="productImage" />
                     <label class="custom-file-label" for="productImage">Choose file</label>
                 </div>
-
                 <div class="form-group">
-                    <img id="imgPreview" height="100" width="100" th:if="${productDTO.imageName != null}"
-                        th:src="${productDTO.imageName}" alt="Preview">
+                    <img src="#" id="imgPreview" height="100px" width="100px"
+                        th:src="@{${'/productImages/' + productDTO.imageName}}" alt="Preview">
                 </div>
-
                 <input type="hidden" name="imgName" th:value="${productDTO.imageName}">
             </div>
             <button type="submit" class="btn"><i class="fas fa-check-circle"></i> Submit</button>
