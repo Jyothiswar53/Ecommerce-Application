@@ -65,7 +65,7 @@ public class AdminController {
 
     @PostMapping("/register")
     public String register(@RequestParam("email") String email,
-                           @RequestParam("password") String password) {
+            @RequestParam("password") String password) {
         User u = new User();
         u.setEmail(email);
         u.setPassword(password);
@@ -131,9 +131,9 @@ public class AdminController {
 
     @PostMapping("/admin/products/add")
     public String postAddProduct(@ModelAttribute("productDTO") ProductDt p,
-                                 @RequestParam("productImage") MultipartFile file,
-                                 @RequestParam("imgName") String imgName,
-                                 Model model) throws IOException { 
+            @RequestParam("productImage") MultipartFile file,
+            @RequestParam("imgName") String imgName,
+            Model model) throws IOException {
 
         Product pro = new Product();
         pro.setId(p.getId());
@@ -142,28 +142,27 @@ public class AdminController {
         pro.setDescription(p.getDescription());
         pro.setWeight(p.getWeight());
 
-        Optional<Category> categoryOpt = cservice.fetchbyId(p.getCategoryId());
-        if (categoryOpt.isPresent()) {
-            pro.setCategory(categoryOpt.get());
-        } else {
-            model.addAttribute("error", "Selected category not found");
-            model.addAttribute("categories", cservice.getAll());
-            model.addAttribute("productDTO", p);  
-            return "productsAdd"; 
-        }
+        Category category = cservice.fetchbyId(p.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        pro.setCategory(category);
 
-        String imageUUID = imgName;
+        String imageName = imgName;
+
         if (!file.isEmpty()) {
-            imageUUID = file.getOriginalFilename();
+            imageName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
-            Path path = Paths.get(uploadPath, imageUUID);
-            Files.write(path, file.getBytes());
+
+            Path filePath = Paths.get(uploadPath, imageName);
+            Files.write(filePath, file.getBytes());
         }
-        pro.setImageName(imageUUID);
+
+        pro.setImageName(imageName);
         pservice.saveProduct(pro);
+
         return "redirect:/admin/products";
     }
 
