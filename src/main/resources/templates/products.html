@@ -151,10 +151,9 @@
                         <td th:text="${product.category.name}">Category</td>
                         <td>
                             <div class="image-container">
-                                <img th:if="${product.imageName != null}" th:src="${product.imageName}"
-                                    alt="Product Image">
-
-                                <img th:if="${product.imageName == null}" src="/images/placeholder.jpg" alt="No Image">
+                                <img th:src="@{'/productImages/' + ${product.imageName}}" alt="${product.name}"
+                                    th:unless="${product.imageName == null}">
+                                <img th:if="${product.imageName == null}" src="/images/placeholder.jpg" alt="No image">
                             </div>
                         </td>
                         <td>
