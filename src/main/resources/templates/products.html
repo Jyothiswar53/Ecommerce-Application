@@ -12,7 +12,6 @@
         rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
-
         body {
             padding-top: 100px;
         }
@@ -31,6 +30,7 @@
             font-size: 2.2rem;
             margin: 0;
         }
+
         .image-container {
             width: 80px;
             height: 80px;
@@ -79,6 +79,7 @@
             .navbar-toggler {
                 display: block;
             }
+
             .navbar-nav {
                 position: absolute;
                 top: 100%;
@@ -150,9 +151,10 @@
                         <td th:text="${product.category.name}">Category</td>
                         <td>
                             <div class="image-container">
-                                <img th:src="@{'/productImages/' + ${product.imageName}}" alt="${product.name}"
-                                    th:unless="${product.imageName == null}">
-                                <img th:if="${product.imageName == null}" src="/images/placeholder.jpg" alt="No image">
+                                <img th:if="${product.imageName != null}" th:src="${product.imageName}"
+                                    alt="Product Image">
+
+                                <img th:if="${product.imageName == null}" src="/images/placeholder.jpg" alt="No Image">
                             </div>
                         </td>
                         <td>
