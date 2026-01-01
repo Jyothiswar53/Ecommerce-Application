@@ -107,7 +107,7 @@
                 <tbody>
                     <tr th:each="item : ${cartItems}">
                         <td data-label="Product">
-                            <img th:src="${item.imageName}" width="80" alt="Product">
+                            <img th:src="@{'/productImages/' + ${item.imageName}}">
                             <span th:text="${item.productName}"></span>
                         </td>
                         <td data-label="Price">₹ <span th:text="${item.price}"></span></td>
