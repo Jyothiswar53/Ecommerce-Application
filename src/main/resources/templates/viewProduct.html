@@ -12,7 +12,6 @@
         rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
-
         body {
             padding-top: 100px;
         }
@@ -87,7 +86,7 @@
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
- 
+
         .related-products {
             margin-top: 4rem;
             text-align: center;
@@ -143,8 +142,7 @@
     <div class="container">
         <div class="product-row">
             <div class="product-image-container">
-                <img class="product-image" th:src="@{${'/productImages/' + product.imageName}}"
-                    th:alt="${product.name}">
+                <img class="product-image" th:src="${product.imageName}" th:alt="${product.name}">
             </div>
             <div class="product-details">
                 <h2 th:text="${product.name}">Product Name</h2>
